@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --cinema-bg: #0b0c10;
+  --cinema-surface: #14161d;
+  --cinema-card: #1a1d26;
+  --cinema-border: rgba(255, 255, 255, 0.08);
+  --cinema-red: #e50914;
+}
+
+body {
+  background-color: #0b0c10;
+  color: #f3f4f6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0c10;
+}
+::-webkit-scrollbar-thumb {
+  background: #262a36;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b4255;
+}
+
+/* Cinema Curved Screen Glow */
+.cinema-screen-curve {
+  position: relative;
+  width: 80%;
+  height: 18px;
+  margin: 0 auto 32px auto;
+  border-top: 4px solid #38bdf8;
+  border-radius: 50% 50% 0 0;
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.4));
+}
+
+.cinema-screen-glow {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.15) 0%, rgba(56, 189, 248, 0) 100%);
+  width: 90%;
+  height: 48px;
+  margin: -10px auto 16px auto;
+  border-radius: 50% 50% 0 0;
+  pointer-events: none;
+}
+
+/* Print Ticket Styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .printable-ticket, .printable-ticket * {
+    visibility: visible;
+  }
+  .printable-ticket {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}
