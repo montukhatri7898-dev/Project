@@ -41,12 +41,12 @@ export interface ScreenConfig {
   screenNumber: number;
   name: string;
   screenType: 'Standard' | 'Dolby Cinema' | 'IMAX 3D';
-  rows: string[]; // e.g. ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-  seatsPerRow: number; // e.g. 12
+  rows: string[];
+  seatsPerRow: number;
   tierRows: {
-    silver: string[]; // ['A', 'B']
-    gold: string[]; // ['C', 'D', 'E', 'F']
-    platinum: string[]; // ['G', 'H']
+    silver: string[];
+    gold: string[];
+    platinum: string[];
   };
 }
 
@@ -127,8 +127,8 @@ export interface BookingDoc {
   showTime: string;
   selectedSeats: BookingSeatItem[];
   subtotal: number;
-  taxes: number; // 18% GST
-  fees: number; // convenience fee
+  taxes: number;
+  fees: number;
   totalAmount: number;
   bookingStatus: 'pending' | 'confirmed' | 'cancelled';
   paymentStatus: 'unpaid' | 'paid' | 'refunded';
@@ -185,6 +185,245 @@ export interface DatabaseSchema {
   promotions: PromotionDoc[];
 }
 
+export const REAL_WORLD_MOVIES: MovieDoc[] = [
+  {
+    _id: 'mov_kalki_2898_ad',
+    title: 'Kalki 2898 AD',
+    slug: 'kalki-2898-ad',
+    description: 'Set in a post-apocalyptic world in the year 2898 AD, a select few embark on a perilous mission to protect laboratory subject SUM-80 and her unborn child, believed to be the tenth avatar of Vishnu, Kalki. Starring Prabhas as Bhairava and Amitabh Bachchan as Ashwatthama.',
+    genre: ['Sci-Fi', 'Action', 'Mythological'],
+    language: 'Telugu / Hindi',
+    durationMinutes: 181,
+    releaseDate: '2024-06-27',
+    contentRating: 'UA',
+    posterUrl: '/assets/posters/kalki_2898_ad.jpg',
+    backdropUrl: '/assets/posters/dune_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=kQDd1AhGIHk',
+    cast: ['Prabhas', 'Amitabh Bachchan', 'Kamal Haasan', 'Deepika Padukone', 'Disha Patani'],
+    status: 'now_showing',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: 'mov_jawan',
+    title: 'Jawan',
+    slug: 'jawan',
+    description: 'A high-octane emotional action thriller that outlines the journey of a man driven by a personal vendetta to rectify the wrongs in society, while keeping a promise made years ago. A massive box-office spectacle directed by Atlee.',
+    genre: ['Action', 'Thriller', 'Drama'],
+    language: 'Hindi',
+    durationMinutes: 169,
+    releaseDate: '2023-09-07',
+    contentRating: 'UA',
+    posterUrl: '/assets/posters/jawan.jpg',
+    backdropUrl: '/assets/posters/oppenheimer_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=COv52Qyctws',
+    cast: ['Shah Rukh Khan', 'Nayanthara', 'Vijay Sethupathi', 'Deepika Padukone', 'Sanya Malhotra'],
+    status: 'now_showing',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: 'mov_stree_2',
+    title: 'Stree 2: Sarkate Ka Aatank',
+    slug: 'stree-2',
+    description: 'After the events of Stree, the town of Chanderi is haunted by a new menace known as Sarkata who abducts progressive women. Vicky and his loyal gang must team up with the mysterious protector spirit to defeat the malevolent entity.',
+    genre: ['Comedy', 'Horror'],
+    language: 'Hindi',
+    durationMinutes: 147,
+    releaseDate: '2024-08-15',
+    contentRating: 'UA',
+    posterUrl: '/assets/posters/stree_2.jpg',
+    backdropUrl: '/assets/posters/oppenheimer_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=KVnheQ84kCA',
+    cast: ['Rajkummar Rao', 'Shraddha Kapoor', 'Pankaj Tripathi', 'Abhishek Banerjee', 'Aparshakti Khurana'],
+    status: 'now_showing',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: 'mov_animal',
+    title: 'Animal',
+    slug: 'animal',
+    description: 'A ferocious, complex drama exploring the volatile relationship between a son and his emotionally aloof industrialist father that erupts into ruthless underworld violence when an assassination attempt threatens his father.',
+    genre: ['Action', 'Crime', 'Drama'],
+    language: 'Hindi',
+    durationMinutes: 201,
+    releaseDate: '2023-12-01',
+    contentRating: 'A',
+    posterUrl: '/assets/posters/animal.jpg',
+    backdropUrl: '/assets/posters/oppenheimer_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=Dydmpfo68DA',
+    cast: ['Ranbir Kapoor', 'Anil Kapoor', 'Bobby Deol', 'Rashmika Mandanna', 'Triptii Dimri'],
+    status: 'now_showing',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: 'mov_dune_part_two',
+    title: 'Dune: Part Two',
+    slug: 'dune-part-two',
+    description: 'Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future.',
+    genre: ['Sci-Fi', 'Adventure', 'Action'],
+    language: 'English',
+    durationMinutes: 166,
+    releaseDate: '2024-03-01',
+    contentRating: 'UA',
+    posterUrl: '/assets/posters/dune_part_two.jpg',
+    backdropUrl: '/assets/posters/dune_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=Way9Dexny3w',
+    cast: ['Timothée Chalamet', 'Zendaya', 'Rebecca Ferguson', 'Javier Bardem', 'Austin Butler'],
+    status: 'now_showing',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: 'mov_oppenheimer',
+    title: 'Oppenheimer',
+    slug: 'oppenheimer',
+    description: 'Christopher Nolans Academy Award-winning masterpiece detailing the life of theoretical physicist J. Robert Oppenheimer, the director of the Manhattan Projects Los Alamos Laboratory during World War II.',
+    genre: ['Biography', 'Drama', 'History'],
+    language: 'English',
+    durationMinutes: 180,
+    releaseDate: '2023-07-21',
+    contentRating: 'A',
+    posterUrl: '/assets/posters/oppenheimer.jpg',
+    backdropUrl: '/assets/posters/oppenheimer_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=uYPbbksJxIg',
+    cast: ['Cillian Murphy', 'Emily Blunt', 'Matt Damon', 'Robert Downey Jr.', 'Florence Pugh'],
+    status: 'now_showing',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: 'mov_rrr',
+    title: 'RRR',
+    slug: 'rrr',
+    description: 'A fictional story about two legendary Indian revolutionaries, Alluri Sitarama Raju and Komaram Bheem, and their fight against the British Raj in 1920. Winner of the Academy Award for Best Original Song.',
+    genre: ['Action', 'Drama', 'Historical'],
+    language: 'Telugu / Hindi',
+    durationMinutes: 182,
+    releaseDate: '2022-03-25',
+    contentRating: 'UA',
+    posterUrl: '/assets/posters/rrr.jpg',
+    backdropUrl: '/assets/posters/oppenheimer_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=NgBoMJy3_6M',
+    cast: ['N. T. Rama Rao Jr.', 'Ram Charan', 'Ajay Devgn', 'Alia Bhatt', 'Shriya Saran'],
+    status: 'now_showing',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: 'mov_interstellar',
+    title: 'Interstellar',
+    slug: 'interstellar',
+    description: 'In Earths future, a global crop blight and second Dust Bowl are slowly rendering the planet uninhabitable. A team of astronauts travel through a wormhole near Saturn in search of a new home for mankind.',
+    genre: ['Sci-Fi', 'Adventure', 'Drama'],
+    language: 'English',
+    durationMinutes: 169,
+    releaseDate: '2014-11-07',
+    contentRating: 'UA',
+    posterUrl: '/assets/posters/interstellar.jpg',
+    backdropUrl: '/assets/posters/interstellar_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=zSWdZVtXT7E',
+    cast: ['Matthew McConaughey', 'Anne Hathaway', 'Jessica Chastain', 'Michael Caine', 'Matt Damon'],
+    status: 'now_showing',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: 'mov_pushpa_2',
+    title: 'Pushpa 2: The Rule',
+    slug: 'pushpa-2-the-rule',
+    description: 'The unstoppable rise of Pushpa Raj in the smuggling syndicate continues, bringing him into direct, merciless conflict with SP Bhanwar Singh Shekhawat in an explosive clash of wills and firepower.',
+    genre: ['Action', 'Crime', 'Thriller'],
+    language: 'Telugu / Hindi',
+    durationMinutes: 175,
+    releaseDate: '2024-12-05',
+    contentRating: 'UA',
+    posterUrl: '/assets/posters/pushpa_2.jpg',
+    backdropUrl: '/assets/posters/dune_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=1kVK0MZlbI4',
+    cast: ['Allu Arjun', 'Rashmika Mandanna', 'Fahadh Faasil', 'Jagapathi Babu'],
+    status: 'coming_soon',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: 'mov_avengers_endgame',
+    title: 'Avengers: Endgame',
+    slug: 'avengers-endgame',
+    description: 'After the devastating cosmic snap by Thanos wiped out half of all life, the remaining Avengers assemble one final time for the ultimate time heist to restore the universe.',
+    genre: ['Action', 'Sci-Fi', 'Adventure'],
+    language: 'English',
+    durationMinutes: 181,
+    releaseDate: '2019-04-26',
+    contentRating: 'UA',
+    posterUrl: '/assets/posters/avengers_endgame.jpg',
+    backdropUrl: '/assets/posters/interstellar_backdrop.jpg',
+    trailerUrl: 'https://www.youtube.com/watch?v=TcMBFSGVi1c',
+    cast: ['Robert Downey Jr.', 'Chris Evans', 'Mark Ruffalo', 'Chris Hemsworth', 'Scarlett Johansson'],
+    status: 'coming_soon',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
+export const REAL_WORLD_PROMOTIONS: PromotionDoc[] = [
+  {
+    _id: 'promo_welcome50',
+    code: 'IMOVIE50',
+    title: 'Welcome to IMovies',
+    description: 'Get Flat ₹50 instant discount on your first cinema ticket reservation.',
+    discountType: 'flat',
+    discountValue: 50,
+    minBookingAmount: 200,
+    badge: 'WELCOME OFFER',
+    validUntil: '2026-12-31',
+    bannerGradient: 'from-red-950/70 to-rose-900/50',
+    terms: 'Applicable on any show across all participating multiplexes.',
+  },
+  {
+    _id: 'promo_desi20',
+    code: 'DESI20',
+    title: 'Indian Blockbuster Bonanza',
+    description: 'Enjoy 20% OFF on Kalki 2898 AD, Jawan, Stree 2, RRR, and Animal tickets.',
+    discountType: 'percentage',
+    discountValue: 20,
+    minBookingAmount: 300,
+    badge: 'TRENDING DEAL',
+    validUntil: '2026-11-30',
+    bannerGradient: 'from-amber-950/70 to-orange-900/50',
+    featuredMovieTitle: 'Kalki 2898 AD & Jawan',
+    terms: 'Valid on Hindi, Tamil, Telugu, and Kannada language theatrical screenings.',
+  },
+  {
+    _id: 'promo_imaxlaser',
+    code: 'IMAXPASS',
+    title: 'IMAX Laser Experience Special',
+    description: 'Save ₹100 on premium IMAX 3D screenings for Dune: Part Two and Oppenheimer.',
+    discountType: 'flat',
+    discountValue: 100,
+    minBookingAmount: 500,
+    badge: 'IMAX EXCLUSIVE',
+    validUntil: '2026-11-20',
+    bannerGradient: 'from-sky-950/70 to-blue-900/50',
+    terms: 'Valid on Phoenix Palladium and Connaught Place IMAX auditoriums.',
+  },
+  {
+    _id: 'promo_matinee25',
+    code: 'MATINEE25',
+    title: 'Weekday Matinee Celebration',
+    description: 'Flat 25% OFF on morning & matinee shows scheduled before 4:00 PM (Mon-Thu).',
+    discountType: 'percentage',
+    discountValue: 25,
+    minBookingAmount: 250,
+    badge: 'WEEKDAY SAVER',
+    validUntil: '2026-12-15',
+    bannerGradient: 'from-emerald-950/70 to-teal-900/50',
+    terms: 'Subject to auditorium seat availability.',
+  },
+];
+
 class Database {
   private data: DatabaseSchema;
   private writeTimer: NodeJS.Timeout | null = null;
@@ -212,21 +451,18 @@ class Database {
       try {
         const raw = fs.readFileSync(DB_FILE, 'utf-8');
         this.data = JSON.parse(raw);
-        if (!this.data.promotions) {
-          this.data.promotions = [];
-        }
-        console.log('[IMovies DB] Loaded existing database records successfully.');
+        console.log('[IMovies DB] Loaded existing database records.');
       } catch (err) {
-        console.error('[IMovies DB] Error reading DB file, re-initializing seed:', err);
+        console.error('[IMovies DB] Error reading DB file, re-seeding:', err);
         this.seedInitialData();
       }
     } else {
-      console.log('[IMovies DB] No existing DB file found. Seeding initial data...');
+      console.log('[IMovies DB] No DB file found. Seeding initial data...');
       this.seedInitialData();
     }
 
-    // Auto-sync promotions and Indian movies if not yet present
-    this.ensureIndianMoviesAndPromotions();
+    // Always ensure real world movies, clean out legacy fake movies
+    this.synchronizeRealWorldMovies();
   }
 
   public save() {
@@ -249,300 +485,145 @@ class Database {
   public get notifications() { return this.data.notifications; }
   public get promotions() { return this.data.promotions; }
 
-  private ensureIndianMoviesAndPromotions() {
-    let modified = false;
-
-    // 1. Sync Promotions
-    if (!this.data.promotions || this.data.promotions.length === 0) {
-      this.data.promotions = [
-        {
-          _id: 'promo_welcome50',
-          code: 'IMOVIE50',
-          title: 'Welcome to IMovies',
-          description: 'Get Flat ₹50 instant discount on your first cinema ticket reservation.',
-          discountType: 'flat',
-          discountValue: 50,
-          minBookingAmount: 200,
-          badge: 'WELCOME OFFER',
-          validUntil: '2026-12-31',
-          bannerGradient: 'from-red-950/70 to-rose-900/50',
-          terms: 'Applicable on any show across all participating multiplexes.',
-        },
-        {
-          _id: 'promo_desi20',
-          code: 'DESI20',
-          title: 'Indian Blockbuster Bonanza',
-          description: 'Enjoy 20% OFF on Bollywood & Indian action spectacles including Mumbai Velocity & Kaal Bhairav.',
-          discountType: 'percentage',
-          discountValue: 20,
-          minBookingAmount: 300,
-          badge: 'TRENDING DEAL',
-          validUntil: '2026-11-30',
-          bannerGradient: 'from-amber-950/70 to-orange-900/50',
-          featuredMovieTitle: 'Mumbai Velocity & Kaal Bhairav',
-          terms: 'Valid on Hindi, Tamil, Telugu, and Kannada language theatrical screenings.',
-        },
-        {
-          _id: 'promo_imaxlaser',
-          code: 'IMAXPASS',
-          title: 'IMAX Laser Experience Special',
-          description: 'Save ₹100 on premium IMAX 3D and Dolby Atmos screenings for 2+ tickets.',
-          discountType: 'flat',
-          discountValue: 100,
-          minBookingAmount: 500,
-          badge: 'IMAX EXCLUSIVE',
-          validUntil: '2026-11-20',
-          bannerGradient: 'from-sky-950/70 to-blue-900/50',
-          terms: 'Valid on Phoenix Palladium and Connaught Place IMAX auditoriums.',
-        },
-        {
-          _id: 'promo_matinee25',
-          code: 'MATINEE25',
-          title: 'Weekday Matinee Celebration',
-          description: 'Flat 25% OFF on morning & matinee shows scheduled before 4:00 PM (Mon-Thu).',
-          discountType: 'percentage',
-          discountValue: 25,
-          minBookingAmount: 250,
-          badge: 'WEEKDAY SAVER',
-          validUntil: '2026-12-15',
-          bannerGradient: 'from-emerald-950/70 to-teal-900/50',
-          terms: 'Subject to auditorium seat availability.',
-        },
-      ];
-      modified = true;
-    }
-
-    // 2. Ensure Indian Movies exist
-    const indianMoviesToAdd: MovieDoc[] = [
-      {
-        _id: 'mov_mumbai_velocity',
-        title: 'Mumbai Velocity',
-        slug: 'mumbai-velocity',
-        description: 'In the high-speed neon streets of Mumbai, an elite undercover specialist is pulled into an adrenaline-charged chase against an international syndicate. Featuring death-defying car pursuits along Marine Drive and high-octane martial arts.',
-        genre: ['Action', 'Thriller', 'Crime'],
-        language: 'Hindi',
-        durationMinutes: 148,
-        releaseDate: '2026-10-22',
-        contentRating: 'UA',
-        posterUrl: '/src/assets/images/poster_mumbai_heist_1792990334498.jpg',
-        backdropUrl: '/src/assets/images/poster_mumbai_heist_1792990334498.jpg',
-        trailerUrl: 'https://www.youtube.com/watch?v=d96cjKs0Hy8',
-        cast: ['Akshay Khan', 'Vidyut Jai', 'Jacqueline Roy', 'Pankaj Tripathi'],
-        status: 'now_showing',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        _id: 'mov_kaal_bhairav',
-        title: 'Kaal Bhairav: Forest Legend',
-        slug: 'kaal-bhairav-forest-legend',
-        description: 'Deep in the sacred deodar forests of Karnataka, an ancestral warrior dancer invokes the divine protector when an encroaching timber syndicate threatens their holy shrine. An epic saga of ritualistic fury and justice.',
-        genre: ['Action', 'Folklore', 'Drama', 'Mythological'],
-        language: 'Hindi',
-        durationMinutes: 156,
-        releaseDate: '2026-10-24',
-        contentRating: 'UA',
-        posterUrl: '/src/assets/images/poster_kantara_spirit_1792990334483.jpg',
-        backdropUrl: '/src/assets/images/poster_kantara_spirit_1792990334483.jpg',
-        trailerUrl: 'https://www.youtube.com/watch?v=TcMBFSGVi1c',
-        cast: ['Aditya Singh', 'Sapthami Rao', 'Kishore Gowda', 'Rishabh Dev'],
-        status: 'now_showing',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        _id: 'mov_kalki_chronicles',
-        title: 'Kalki: Dawn of Dharma',
-        slug: 'kalki-dawn-of-dharma',
-        description: 'In the dystopian year 2898 in ancient Kasi, legendary mythological warriors clash with robotic armies over the protection of a holy vessel, igniting an epochal battle for humanitys rebirth.',
-        genre: ['Sci-Fi', 'Mythological', 'Action'],
-        language: 'Telugu / Hindi',
-        durationMinutes: 172,
-        releaseDate: '2026-11-20',
-        contentRating: 'UA',
-        posterUrl: '/src/assets/images/poster_crimson_dynasty_1792988111258.jpg',
-        backdropUrl: '/src/assets/images/hero_cinema_blockbuster_1792988110364.jpg',
-        trailerUrl: 'https://www.youtube.com/watch?v=zSWdZVtXT7E',
-        cast: ['Prabhas Raju', 'Amitabh Bachchan', 'Deepika Padukone', 'Kamal Haasan'],
-        status: 'coming_soon',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-    ];
-
+  public holdSeats(
+    showId: string,
+    seatIds: string[],
+    userId: string,
+    timeoutMinutes = 5
+  ): { success: boolean; error?: string; heldSeats?: string[]; expiresAt?: string } {
     const now = new Date();
-    const todayStr = now.toISOString().split('T')[0];
-    const tomorrowStr = new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const expiresAt = new Date(now.getTime() + timeoutMinutes * 60 * 1000).toISOString();
 
-    for (const indianMovie of indianMoviesToAdd) {
-      const exists = this.data.movies.some((m) => m._id === indianMovie._id || m.title === indianMovie.title);
-      if (!exists) {
-        this.data.movies.unshift(indianMovie);
-        modified = true;
-
-        // Add shows for now_showing Indian movies
-        if (indianMovie.status === 'now_showing') {
-          const sampleTheatres = this.data.theatres.slice(0, 2);
-          sampleTheatres.forEach((th, idx) => {
-            const screen = th.screens[0];
-            if (!screen) return;
-
-            const showId = `shw_${indianMovie.slug}_${th.city.toLowerCase()}_${idx + 1}`;
-            const showExists = this.data.shows.some((s) => s._id === showId);
-            if (!showExists) {
-              const newShow: ShowDoc = {
-                _id: showId,
-                movieId: indianMovie._id,
-                theatreId: th._id,
-                screenId: screen.screenId,
-                screenName: screen.name,
-                startTime: `${idx === 0 ? todayStr : tomorrowStr}T${idx === 0 ? '19:45:00' : '17:30:00'}.000Z`,
-                endTime: `${idx === 0 ? todayStr : tomorrowStr}T${idx === 0 ? '22:30:00' : '20:15:00'}.000Z`,
-                tierPricing: {
-                  silver: 220,
-                  gold: 340,
-                  platinum: 480,
-                },
-                status: 'scheduled',
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-              };
-              this.data.shows.push(newShow);
-
-              // Initialize seats
-              screen.rows.forEach((rowLetter) => {
-                let tier: 'silver' | 'gold' | 'platinum' = 'gold';
-                if (screen.tierRows.silver.includes(rowLetter)) tier = 'silver';
-                if (screen.tierRows.platinum.includes(rowLetter)) tier = 'platinum';
-
-                for (let num = 1; num <= screen.seatsPerRow; num++) {
-                  const seatId = `${rowLetter}${num < 10 ? '0' + num : num}`;
-                  this.data.seats.push({
-                    _id: `${newShow._id}_${seatId}`,
-                    showId: newShow._id,
-                    seatId,
-                    row: rowLetter,
-                    number: num,
-                    tier,
-                    status: 'available',
-                    updatedAt: new Date().toISOString(),
-                  });
-                }
-              });
-            }
-          });
+    for (const seatId of seatIds) {
+      const seat = this.data.seats.find((s) => s.showId === showId && s.seatId === seatId);
+      if (!seat) {
+        return { success: false, error: `Seat ${seatId} does not exist in this auditorium.` };
+      }
+      if (seat.status === 'booked') {
+        return { success: false, error: `Seat ${seatId} is already booked by another patron.` };
+      }
+      if (seat.status === 'held' && seat.heldByUserId !== userId) {
+        if (seat.heldUntil && new Date(seat.heldUntil) > now) {
+          return { success: false, error: `Seat ${seatId} is currently held by another user.` };
         }
       }
     }
 
-    if (modified) {
-      this.save();
-      console.log('[IMovies DB] Successfully synchronized Indian movies and promotions.');
+    for (const seatId of seatIds) {
+      const seat = this.data.seats.find((s) => s.showId === showId && s.seatId === seatId);
+      if (seat) {
+        seat.status = 'held';
+        seat.heldByUserId = userId;
+        seat.heldUntil = expiresAt;
+        seat.updatedAt = new Date().toISOString();
+      }
     }
+
+    this.save();
+    return { success: true, heldSeats: seatIds, expiresAt };
   }
 
-  private seedInitialData() {
-    const adminPasswordHash = bcrypt.hashSync('admin123', 10);
-    const customerPasswordHash = bcrypt.hashSync('customer123', 10);
+  public releaseSeats(showId: string, seatIds: string[], userId?: string): number {
+    let releasedCount = 0;
+    for (const seatId of seatIds) {
+      const seat = this.data.seats.find((s) => s.showId === showId && s.seatId === seatId);
+      if (seat && (!userId || seat.heldByUserId === userId) && seat.status === 'held') {
+        seat.status = 'available';
+        seat.heldByUserId = undefined;
+        seat.heldUntil = undefined;
+        seat.updatedAt = new Date().toISOString();
+        releasedCount++;
+      }
+    }
+    if (releasedCount > 0) this.save();
+    return releasedCount;
+  }
 
-    const defaultUsers: UserDoc[] = [
-      {
-        _id: 'usr_admin_01',
-        name: 'IMovies Chief Administrator',
-        email: 'admin@imovies.com',
-        passwordHash: adminPasswordHash,
-        role: 'admin',
-        preferredCity: 'Mumbai',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        _id: 'usr_customer_01',
-        name: 'Arjun Sharma',
-        email: 'customer@imovies.com',
-        passwordHash: customerPasswordHash,
-        role: 'customer',
-        preferredCity: 'Mumbai',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-    ];
+  public confirmBookingSeats(
+    showId: string,
+    seatIds: string[],
+    bookingId: string,
+    _userId?: string
+  ): boolean {
+    for (const seatId of seatIds) {
+      const seat = this.data.seats.find((s) => s.showId === showId && s.seatId === seatId);
+      if (seat) {
+        seat.status = 'booked';
+        seat.bookingId = bookingId;
+        seat.heldByUserId = undefined;
+        seat.heldUntil = undefined;
+        seat.updatedAt = new Date().toISOString();
+      }
+    }
+    this.save();
+    return true;
+  }
 
-    const defaultMovies: MovieDoc[] = [
-      {
-        _id: 'mov_stellar_voyage',
-        title: 'Stellar Voyage',
-        slug: 'stellar-voyage',
-        description: 'When deep space anomaly threatens Earth, commander Elena Vance and an elite crew journey across uncharted solar systems to reach an orbital jumpgate, discovering secrets beyond cosmic imagination.',
-        genre: ['Sci-Fi', 'Adventure', 'Drama'],
-        language: 'English',
-        durationMinutes: 154,
-        releaseDate: '2026-10-18',
-        contentRating: 'UA',
-        posterUrl: '/src/assets/images/poster_stellar_voyage_1792988110200.jpg',
-        backdropUrl: '/src/assets/images/hero_cinema_blockbuster_1792988110364.jpg',
-        trailerUrl: 'https://www.youtube.com/watch?v=zSWdZVtXT7E',
-        cast: ['Elena Vance', 'David Chen', 'Sarah Lin', 'Marcus Thorne'],
-        status: 'now_showing',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        _id: 'mov_shadow_operative',
-        title: 'Shadow Operative',
-        slug: 'shadow-operative',
-        description: 'An off-the-books intelligence agent is pulled out of hiding when a syndicate unleashes a lethal cyber weapon. Trapped in a rain-soaked neon metropolis, every shadow conceals betrayal.',
-        genre: ['Action', 'Thriller', 'Mystery'],
-        language: 'English',
-        durationMinutes: 132,
-        releaseDate: '2026-10-24',
-        contentRating: 'A',
-        posterUrl: '/src/assets/images/poster_shadow_operative_1792988110722.jpg',
-        backdropUrl: '/src/assets/images/poster_shadow_operative_1792988110722.jpg',
-        trailerUrl: 'https://www.youtube.com/watch?v=d96cjKs0Hy8',
-        cast: ['Marcus Cole', 'Lena Kai', 'Victor Sterling'],
-        status: 'now_showing',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        _id: 'mov_crimson_dynasty',
-        title: 'Crimson Dynasty',
-        slug: 'crimson-dynasty',
-        description: 'In an era of warring feudal kingdoms, a masterless samurai is entrusted with guarding the sacred imperial seal against an invading clan, leading to an epochal clash of honor and destiny.',
-        genre: ['Action', 'Drama', 'Historical'],
-        language: 'Hindi',
-        durationMinutes: 165,
-        releaseDate: '2026-10-20',
-        contentRating: 'UA',
-        posterUrl: '/src/assets/images/poster_crimson_dynasty_1792988111258.jpg',
-        backdropUrl: '/src/assets/images/poster_crimson_dynasty_1792988111258.jpg',
-        trailerUrl: 'https://www.youtube.com/watch?v=TcMBFSGVi1c',
-        cast: ['Kenjiro Sano', 'Aoi Miyazaki', 'Hiroyuki Sanada'],
-        status: 'now_showing',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        _id: 'mov_aurora_protocol',
-        title: 'Aurora Protocol',
-        slug: 'aurora-protocol',
-        description: 'A subterranean scientific outpost beneath the Arctic discovers an encrypted frequency echoing from beneath the glacial shelf, triggering an international race for ultimate energy sovereignty.',
-        genre: ['Thriller', 'Sci-Fi'],
-        language: 'English',
-        durationMinutes: 118,
-        releaseDate: '2026-11-14',
-        contentRating: 'UA',
-        posterUrl: '/src/assets/images/hero_cinema_blockbuster_1792988110364.jpg',
-        backdropUrl: '/src/assets/images/hero_cinema_blockbuster_1792988110364.jpg',
-        trailerUrl: 'https://www.youtube.com/watch?v=YoHD9XEInc0',
-        cast: ['Sophia Lind', 'Nils Lindqvist', 'Arthur Bell'],
-        status: 'coming_soon',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-    ];
+  public reapExpiredHolds(): { showId: string; seatId: string }[] {
+    const now = new Date();
+    const expiredList: { showId: string; seatId: string }[] = [];
 
+    for (const seat of this.data.seats) {
+      if (seat.status === 'held' && seat.heldUntil && new Date(seat.heldUntil) <= now) {
+        seat.status = 'available';
+        seat.heldByUserId = undefined;
+        seat.heldUntil = undefined;
+        seat.updatedAt = now.toISOString();
+        expiredList.push({ showId: seat.showId, seatId: seat.seatId });
+      }
+    }
+
+    if (expiredList.length > 0) {
+      this.save();
+    }
+    return expiredList;
+  }
+
+  public synchronizeRealWorldMovies() {
+    let modified = false;
+
+    // 1. Remove any fake movies by ID or title
+    const fakeIds = new Set([
+      'mov_stellar_voyage',
+      'mov_shadow_operative',
+      'mov_crimson_dynasty',
+      'mov_aurora_protocol',
+      'mov_mumbai_velocity',
+      'mov_kaal_bhairav',
+      'mov_kalki_chronicles',
+    ]);
+    const fakeTitles = new Set([
+      'Stellar Voyage',
+      'Shadow Operative',
+      'Crimson Dynasty',
+      'Aurora Protocol',
+      'Mumbai Velocity',
+      'Kaal Bhairav: Forest Legend',
+      'Kalki: Dawn of Dharma',
+    ]);
+
+    const initialMovieCount = this.data.movies.length;
+    this.data.movies = this.data.movies.filter(
+      (m) => !fakeIds.has(m._id) && !fakeTitles.has(m.title)
+    );
+    if (this.data.movies.length !== initialMovieCount) {
+      modified = true;
+    }
+
+    // 2. Add or update all REAL_WORLD_MOVIES
+    for (const realMovie of REAL_WORLD_MOVIES) {
+      const idx = this.data.movies.findIndex((m) => m._id === realMovie._id || m.slug === realMovie.slug);
+      if (idx >= 0) {
+        // Update metadata with latest poster URLs
+        this.data.movies[idx] = { ...this.data.movies[idx], ...realMovie };
+        modified = true;
+      } else {
+        this.data.movies.push(realMovie);
+        modified = true;
+      }
+    }
+
+    // 3. Ensure Default Theatres exist across major Indian metropolitan cities
     const defaultTheatres: TheatreDoc[] = [
       {
         _id: 'th_pvr_phoenix',
@@ -554,7 +635,7 @@ class Database {
           {
             screenId: 'scr_01',
             screenNumber: 1,
-            name: 'Audi 1 (IMAX Laser)',
+            name: 'Audi 1 (IMAX 3D Laser)',
             screenType: 'IMAX 3D',
             rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
             seatsPerRow: 12,
@@ -567,7 +648,7 @@ class Database {
           {
             screenId: 'scr_02',
             screenNumber: 2,
-            name: 'Audi 2 (Dolby Atmos)',
+            name: 'Audi 2 (Dolby Cinema)',
             screenType: 'Dolby Cinema',
             rows: ['A', 'B', 'C', 'D', 'E', 'F'],
             seatsPerRow: 10,
@@ -632,237 +713,224 @@ class Database {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
+      {
+        _id: 'th_nexus_bengaluru',
+        name: 'IMovies Luxe — Nexus Koramangala',
+        city: 'Bengaluru',
+        address: 'Hosur Road, Koramangala, Bengaluru, Karnataka',
+        facilities: ['IMAX 4K Laser', 'Dolby Atmos', 'Recliner Lounges', 'Valet Parking'],
+        screens: [
+          {
+            screenId: 'scr_05',
+            screenNumber: 1,
+            name: 'Audi 1 (IMAX Laser)',
+            screenType: 'IMAX 3D',
+            rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+            seatsPerRow: 12,
+            tierRows: {
+              silver: ['A', 'B'],
+              gold: ['C', 'D', 'E', 'F'],
+              platinum: ['G', 'H'],
+            },
+          },
+        ],
+        status: 'active',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        _id: 'th_prasads_hyderabad',
+        name: 'IMovies Prasads — Necklace Road',
+        city: 'Hyderabad',
+        address: 'Necklace Road, NTR Gardens, Hyderabad, Telangana',
+        facilities: ['Giant Screen', 'Dolby Atmos', '4K Projection', 'Gaming Zone'],
+        screens: [
+          {
+            screenId: 'scr_06',
+            screenNumber: 1,
+            name: 'Audi 1 (Giant Screen)',
+            screenType: 'IMAX 3D',
+            rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+            seatsPerRow: 12,
+            tierRows: {
+              silver: ['A', 'B'],
+              gold: ['C', 'D', 'E', 'F'],
+              platinum: ['G', 'H'],
+            },
+          },
+        ],
+        status: 'active',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        _id: 'th_phoenix_pune',
+        name: 'IMovies Grand — Phoenix Marketcity',
+        city: 'Pune',
+        address: 'Viman Nagar, Nagar Road, Pune, Maharashtra',
+        facilities: ['Dolby Atmos', '4K Laser', 'Food Court', 'VIP Recliners'],
+        screens: [
+          {
+            screenId: 'scr_07',
+            screenNumber: 1,
+            name: 'Screen 1 (Laser Atmos)',
+            screenType: 'Dolby Cinema',
+            rows: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+            seatsPerRow: 10,
+            tierRows: {
+              silver: ['A', 'B'],
+              gold: ['C', 'D', 'E'],
+              platinum: ['F', 'G'],
+            },
+          },
+        ],
+        status: 'active',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
     ];
 
-    // Create realistic showtimes for today and tomorrow
+    for (const theatre of defaultTheatres) {
+      const idx = this.data.theatres.findIndex((t) => t._id === theatre._id);
+      if (idx >= 0) {
+        this.data.theatres[idx] = { ...this.data.theatres[idx], ...theatre };
+      } else {
+        this.data.theatres.push(theatre);
+        modified = true;
+      }
+    }
+
+    // 4. Clean out orphan shows and seats for fake movies
+    const validMovieIds = new Set(this.data.movies.map((m) => m._id));
+    const initialShowCount = this.data.shows.length;
+    this.data.shows = this.data.shows.filter((s) => validMovieIds.has(s.movieId));
+    if (this.data.shows.length !== initialShowCount) {
+      modified = true;
+    }
+
+    const validShowIds = new Set(this.data.shows.map((s) => s._id));
+    const initialSeatCount = this.data.seats.length;
+    this.data.seats = this.data.seats.filter((st) => validShowIds.has(st.showId));
+    if (this.data.seats.length !== initialSeatCount) {
+      modified = true;
+    }
+
+    // 5. Ensure active showtimes for now_showing real movies
     const now = new Date();
     const todayStr = now.toISOString().split('T')[0];
     const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
     const tomorrowStr = tomorrow.toISOString().split('T')[0];
 
-    const defaultShows: ShowDoc[] = [
+    const nowShowingMovies = this.data.movies.filter((m) => m.status === 'now_showing');
+
+    for (const movie of nowShowingMovies) {
+      // Ensure at least 2 shows exist for this movie
+      const existingShows = this.data.shows.filter((s) => s.movieId === movie._id);
+      if (existingShows.length < 2) {
+        this.data.theatres.forEach((theatre, thIdx) => {
+          const screen = theatre.screens[0];
+          if (!screen) return;
+
+          const timeSlots = [
+            { start: '14:30:00', end: '17:30:00' },
+            { start: '18:45:00', end: '21:45:00' },
+          ];
+
+          timeSlots.forEach((slot, slotIdx) => {
+            const dateStr = slotIdx === 0 ? todayStr : tomorrowStr;
+            const showId = `shw_${movie.slug}_${theatre.city.toLowerCase()}_${slotIdx + 1}`;
+
+            if (!this.data.shows.some((s) => s._id === showId)) {
+              const newShow: ShowDoc = {
+                _id: showId,
+                movieId: movie._id,
+                theatreId: theatre._id,
+                screenId: screen.screenId,
+                screenName: screen.name,
+                startTime: `${dateStr}T${slot.start}.000Z`,
+                endTime: `${dateStr}T${slot.end}.000Z`,
+                tierPricing: {
+                  silver: screen.screenType === 'IMAX 3D' ? 280 : 200,
+                  gold: screen.screenType === 'IMAX 3D' ? 420 : 320,
+                  platinum: screen.screenType === 'IMAX 3D' ? 580 : 450,
+                },
+                status: 'scheduled',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+              };
+              this.data.shows.push(newShow);
+              modified = true;
+
+              // Generate auditorium seat states
+              screen.rows.forEach((rowLetter) => {
+                let tier: 'silver' | 'gold' | 'platinum' = 'gold';
+                if (screen.tierRows.silver.includes(rowLetter)) tier = 'silver';
+                if (screen.tierRows.platinum.includes(rowLetter)) tier = 'platinum';
+
+                for (let num = 1; num <= screen.seatsPerRow; num++) {
+                  const seatId = `${rowLetter}${num < 10 ? '0' + num : num}`;
+                  this.data.seats.push({
+                    _id: `${newShow._id}_${seatId}`,
+                    showId: newShow._id,
+                    seatId,
+                    row: rowLetter,
+                    number: num,
+                    tier,
+                    status: 'available',
+                    updatedAt: new Date().toISOString(),
+                  });
+                }
+              });
+            }
+          });
+        });
+      }
+    }
+
+    // 6. Ensure real promotions
+    this.data.promotions = REAL_WORLD_PROMOTIONS;
+    modified = true;
+
+    if (modified) {
+      this.save();
+      console.log(`[IMovies DB] Successfully synchronized ${this.data.movies.length} real-world movies and ${this.data.shows.length} shows.`);
+    }
+  }
+
+  private seedInitialData() {
+    const adminPasswordHash = bcrypt.hashSync('admin123', 10);
+    const customerPasswordHash = bcrypt.hashSync('customer123', 10);
+
+    this.data.users = [
       {
-        _id: 'shw_stellar_mumbai_1',
-        movieId: 'mov_stellar_voyage',
-        theatreId: 'th_pvr_phoenix',
-        screenId: 'scr_01',
-        screenName: 'Audi 1 (IMAX Laser)',
-        startTime: `${todayStr}T14:30:00.000Z`,
-        endTime: `${todayStr}T17:15:00.000Z`,
-        tierPricing: {
-          silver: 250,
-          gold: 380,
-          platinum: 520,
-        },
-        status: 'scheduled',
+        _id: 'usr_admin_01',
+        name: 'IMovies Chief Administrator',
+        email: 'admin@imovies.com',
+        passwordHash: adminPasswordHash,
+        role: 'admin',
+        preferredCity: 'Mumbai',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
       {
-        _id: 'shw_stellar_mumbai_2',
-        movieId: 'mov_stellar_voyage',
-        theatreId: 'th_pvr_phoenix',
-        screenId: 'scr_01',
-        screenName: 'Audi 1 (IMAX Laser)',
-        startTime: `${todayStr}T18:00:00.000Z`,
-        endTime: `${todayStr}T20:45:00.000Z`,
-        tierPricing: {
-          silver: 290,
-          gold: 420,
-          platinum: 580,
-        },
-        status: 'scheduled',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        _id: 'shw_shadow_mumbai_1',
-        movieId: 'mov_shadow_operative',
-        theatreId: 'th_pvr_phoenix',
-        screenId: 'scr_02',
-        screenName: 'Audi 2 (Dolby Cinema)',
-        startTime: `${todayStr}T16:00:00.000Z`,
-        endTime: `${todayStr}T18:25:00.000Z`,
-        tierPricing: {
-          silver: 220,
-          gold: 340,
-          platinum: 450,
-        },
-        status: 'scheduled',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        _id: 'shw_crimson_bandra_1',
-        movieId: 'mov_crimson_dynasty',
-        theatreId: 'th_inox_bandra',
-        screenId: 'scr_03',
-        screenName: 'Screen 1 (Prime Laser)',
-        startTime: `${todayStr}T19:30:00.000Z`,
-        endTime: `${todayStr}T22:25:00.000Z`,
-        tierPricing: {
-          silver: 200,
-          gold: 300,
-          platinum: 420,
-        },
-        status: 'scheduled',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      },
-      {
-        _id: 'shw_stellar_delhi_1',
-        movieId: 'mov_stellar_voyage',
-        theatreId: 'th_cine_delhi',
-        screenId: 'scr_04',
-        screenName: 'Audi 1 (Dolby Cinema)',
-        startTime: `${tomorrowStr}T15:00:00.000Z`,
-        endTime: `${tomorrowStr}T17:45:00.000Z`,
-        tierPricing: {
-          silver: 240,
-          gold: 360,
-          platinum: 480,
-        },
-        status: 'scheduled',
+        _id: 'usr_customer_01',
+        name: 'Arjun Sharma',
+        email: 'customer@imovies.com',
+        passwordHash: customerPasswordHash,
+        role: 'customer',
+        preferredCity: 'Mumbai',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
     ];
 
-    // Seed seat inventory for shows
-    const defaultSeats: SeatInventoryDoc[] = [];
-
-    defaultShows.forEach((show) => {
-      const theatre = defaultTheatres.find((t) => t._id === show.theatreId);
-      const screen = theatre?.screens.find((s) => s.screenId === show.screenId);
-      if (!screen) return;
-
-      screen.rows.forEach((rowLetter) => {
-        let tier: 'silver' | 'gold' | 'platinum' = 'gold';
-        if (screen.tierRows.silver.includes(rowLetter)) tier = 'silver';
-        if (screen.tierRows.platinum.includes(rowLetter)) tier = 'platinum';
-
-        for (let num = 1; num <= screen.seatsPerRow; num++) {
-          const seatId = `${rowLetter}${num < 10 ? '0' + num : num}`;
-          // Pre-book a couple of seats for realistic feel on show 1
-          const isSampleBooked = show._id === 'shw_stellar_mumbai_1' && (seatId === 'D06' || seatId === 'D07' || seatId === 'G05');
-
-          defaultSeats.push({
-            _id: `${show._id}_${seatId}`,
-            showId: show._id,
-            seatId,
-            row: rowLetter,
-            number: num,
-            tier,
-            status: isSampleBooked ? 'booked' : 'available',
-            updatedAt: new Date().toISOString(),
-          });
-        }
-      });
-    });
-
-    this.data.users = defaultUsers;
-    this.data.movies = defaultMovies;
-    this.data.theatres = defaultTheatres;
-    this.data.shows = defaultShows;
-    this.data.seats = defaultSeats;
+    this.data.movies = REAL_WORLD_MOVIES;
+    this.data.promotions = REAL_WORLD_PROMOTIONS;
+    this.data.theatres = [];
+    this.data.shows = [];
+    this.data.seats = [];
     this.data.bookings = [];
     this.data.notifications = [];
-
-    this.save();
-    console.log(`[IMovies DB] Successfully seeded ${defaultMovies.length} movies, ${defaultTheatres.length} cinemas, ${defaultShows.length} shows, and ${defaultSeats.length} seats.`);
-  }
-
-  // Atomic Seat Hold
-  public holdSeats(showId: string, seatIds: string[], userId: string, holdMinutes = 5): { success: boolean; heldSeats?: string[]; error?: string } {
-    const expiresAt = new Date(Date.now() + holdMinutes * 60 * 1000).toISOString();
-    const now = new Date().toISOString();
-
-    // 1. Verify show exists
-    const show = this.shows.find((s) => s._id === showId);
-    if (!show) return { success: false, error: 'Show not found' };
-
-    // 2. Validate all requested seats are available or expired-held by someone else
-    for (const seatId of seatIds) {
-      const seat = this.seats.find((s) => s.showId === showId && s.seatId === seatId);
-      if (!seat) {
-        return { success: false, error: `Seat ${seatId} does not exist in this auditorium.` };
-      }
-      if (seat.status === 'booked') {
-        return { success: false, error: `Seat ${seatId} is already booked by another patron.` };
-      }
-      if (seat.status === 'held' && seat.heldUntil && seat.heldUntil > now && seat.heldByUserId !== userId) {
-        return { success: false, error: `Seat ${seatId} is temporarily reserved by another customer.` };
-      }
-    }
-
-    // 3. Atomically acquire hold
-    for (const seatId of seatIds) {
-      const seat = this.seats.find((s) => s.showId === showId && s.seatId === seatId)!;
-      seat.status = 'held';
-      seat.heldByUserId = userId;
-      seat.heldUntil = expiresAt;
-      seat.updatedAt = now;
-    }
-
-    this.save();
-    return { success: true, heldSeats: seatIds };
-  }
-
-  // Release Seat Holds
-  public releaseSeats(showId: string, seatIds: string[], userId?: string) {
-    let releasedCount = 0;
-    const now = new Date().toISOString();
-    for (const seat of this.seats) {
-      if (seat.showId === showId && seatIds.includes(seat.seatId) && seat.status === 'held') {
-        if (!userId || seat.heldByUserId === userId) {
-          seat.status = 'available';
-          seat.heldByUserId = undefined;
-          seat.heldUntil = undefined;
-          seat.updatedAt = now;
-          releasedCount++;
-        }
-      }
-    }
-    if (releasedCount > 0) this.save();
-    return releasedCount;
-  }
-
-  // Reaper for expired holds
-  public reapExpiredHolds(): { showId: string; seatId: string }[] {
-    const now = new Date().toISOString();
-    const expired: { showId: string; seatId: string }[] = [];
-
-    for (const seat of this.seats) {
-      if (seat.status === 'held' && seat.heldUntil && seat.heldUntil <= now) {
-        seat.status = 'available';
-        seat.heldByUserId = undefined;
-        seat.heldUntil = undefined;
-        seat.updatedAt = now;
-        expired.push({ showId: seat.showId, seatId: seat.seatId });
-      }
-    }
-
-    if (expired.length > 0) {
-      this.save();
-    }
-    return expired;
-  }
-
-  // Confirm Booking & Mark Seats as Booked
-  public confirmBookingSeats(showId: string, seatIds: string[], bookingId: string, userId: string): boolean {
-    const now = new Date().toISOString();
-    for (const seatId of seatIds) {
-      const seat = this.seats.find((s) => s.showId === showId && s.seatId === seatId);
-      if (!seat) return false;
-      // Allow confirming if held by user or available
-      seat.status = 'booked';
-      seat.bookingId = bookingId;
-      seat.heldByUserId = undefined;
-      seat.heldUntil = undefined;
-      seat.updatedAt = now;
-    }
-    this.save();
-    return true;
   }
 }
 

@@ -42,16 +42,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   };
 
   const heroMovie = nowShowing[0] || {
-    _id: 'mov_stellar_voyage',
-    title: 'Stellar Voyage',
-    slug: 'stellar-voyage',
-    description: 'When a deep space anomaly threatens Earth, commander Elena Vance and an elite crew journey across uncharted solar systems to reach an orbital jumpgate.',
-    genre: ['Sci-Fi', 'Adventure', 'Drama'],
-    language: 'English',
-    durationMinutes: 154,
+    _id: 'mov_kalki_2898_ad',
+    title: 'Kalki 2898 AD',
+    slug: 'kalki-2898-ad',
+    description: 'Set in a post-apocalyptic world in the year 2898 AD, a select few embark on a perilous mission to protect laboratory subject SUM-80 and her unborn child, believed to be the tenth avatar of Vishnu, Kalki. Starring Prabhas as Bhairava and Amitabh Bachchan as Ashwatthama.',
+    genre: ['Sci-Fi', 'Action', 'Mythological'],
+    language: 'Telugu / Hindi',
+    durationMinutes: 181,
     contentRating: 'UA',
-    backdropUrl: '/src/assets/images/hero_cinema_blockbuster_1792988110364.jpg',
-    posterUrl: '/src/assets/images/poster_stellar_voyage_1792988110200.jpg',
+    backdropUrl: '/assets/posters/dune_backdrop.jpg',
+    posterUrl: '/assets/posters/kalki_2898_ad.jpg',
   };
 
   const displayedMovies = activeTab === 'now_showing' ? nowShowing : comingSoon;

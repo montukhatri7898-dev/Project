@@ -51,7 +51,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onNavigate }) => {
   const [newMovieDuration, setNewMovieDuration] = useState(140);
   const [newMovieRelease, setNewMovieRelease] = useState(new Date().toISOString().split('T')[0]);
   const [newMovieRating, setNewMovieRating] = useState<'U' | 'UA' | 'A'>('UA');
-  const [newMoviePoster, setNewMoviePoster] = useState('/src/assets/images/poster_stellar_voyage_1792988110200.jpg');
+  const [newMoviePoster, setNewMoviePoster] = useState('/assets/posters/kalki_2898_ad.jpg');
 
   // Schedule Show State
   const [showScheduleModal, setShowScheduleModal] = useState(false);

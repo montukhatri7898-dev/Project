@@ -613,7 +613,7 @@ server/
   - `?city=Mumbai`
   - `?language=Hindi`
   - `?genre=Action`
-  - `?search=Velocity`
+  - `?search=Kalki`
 - `GET /api/movies/:id`: Retrieves full details, cast, synopsis, and associated showtimes.
 - `POST /api/movies`: (Admin Only) Adds a new movie title to the catalog.
 - `PUT /api/movies/:id`: (Admin Only) Updates movie metadata or poster URLs.
@@ -969,9 +969,9 @@ npm start
 ## 6.2 Output Screenshots
 
 ### 1. Homepage & Indian Blockbusters Showcase
-- **Description**: Features dynamic hero slider with high-resolution backdrops, city selector, quick search, and active Indian blockbuster posters (*Mumbai Velocity*, *Kaal Bhairav: Forest Legend*, *Crimson Dynasty*, *Stellar Voyage*).
+- **Description**: Features dynamic hero slider with high-resolution backdrops, city selector, quick search, and active Indian blockbuster posters (*Kalki 2898 AD*, *Jawan*, *Stree 2*, *Animal*, *RRR*, *Dune: Part Two*, *Oppenheimer*).
 - **Key Elements**: Search bar, city dropdown (Mumbai, Delhi, Bengaluru, Hyderabad, Pune), "Book Now" CTA, language tags (`Hindi`, `Telugu`, `Tamil`, `English`), IMDB ratings.
-- **Asset References**: `/src/assets/images/poster_mumbai_velocity.png`, `/src/assets/images/poster_kaal_bhairav.png`.
+- **Asset References**: `/assets/posters/kalki_2898_ad.jpg`, `/assets/posters/jawan.jpg`, `/assets/posters/dune_part_two.jpg`.
 
 ### 2. Promotions & Discount Engine
 - **Description**: Prominent promotional component rendering active discount vouchers with 1-click clipboard copy functionality.
@@ -1019,7 +1019,7 @@ npm start
 > *"Good morning, evaluators. Today I am presenting **iMovies**, an enterprise-grade cinema ticket booking and cinema management platform built on the MERN stack with TypeScript and Socket.IO. The system solves the primary challenge in cinema ticketing: high-concurrency race conditions during blockbuster seat reservations."*
 
 #### Phase 2: Customer Discovery & Real-Time Seat Hold (0:30 - 1:15)
-> *"Here on the Homepage, patrons select their city and explore curated movies, including our featured Indian blockbusters like Mumbai Velocity and Kaal Bhairav. Notice our active Promotions component offering verified coupon codes like `IMOVIE50`.*  
+> *"Here on the Homepage, patrons select their city and explore curated movies, including our featured real-world blockbusters like Kalki 2898 AD, Jawan, and Dune: Part Two. Notice our active Promotions component offering verified coupon codes like `IMOVIE50`.*  
 > *When we enter the auditorium seat map, we see our curved screen and three seat tiers: Platinum, Gold, and Silver. Watch what happens when I select seats A3 and A4: the backend initiates an atomic 5-minute hold, locking these seats across all connected clients via WebSockets and starting our countdown timer."*
 
 #### Phase 3: Zero-Trust Checkout & QR Boarding Pass (1:15 - 1:50)

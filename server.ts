@@ -21,7 +21,7 @@ import promotionsRouter from './server/routes/promotions.js';
 
 const app = express();
 const server = http.createServer(app);
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = 3000;
 
 // Enable trust proxy for Cloud Run and reverse proxy environments
 app.set('trust proxy', 1);

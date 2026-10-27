@@ -701,7 +701,7 @@ npm run dev
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
               <div className="p-4 rounded-lg bg-white/5 border border-white/5">
                 <h4 className="font-bold text-white mb-1.5">1. Homepage & Hero Carousel</h4>
-                <p className="text-gray-400">Showcases Indian blockbusters (*Mumbai Velocity*, *Kaal Bhairav*), city filtering, and language tags.</p>
+                <p className="text-gray-400">Showcases real-world blockbusters (*Kalki 2898 AD*, *Jawan*, *Dune: Part Two*, *Oppenheimer*), city filtering, and language tags.</p>
               </div>
               <div className="p-4 rounded-lg bg-white/5 border border-white/5">
                 <h4 className="font-bold text-white mb-1.5">2. Promotions Component</h4>
