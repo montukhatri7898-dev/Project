@@ -83,6 +83,9 @@ app.get('/api/health', (req: Request, res: Response) => {
   });
 });
 
+// Explicit static asset delivery for movie posters and backdrops
+app.use('/assets', express.static(path.resolve(process.cwd(), 'public/assets')));
+
 // Central Error Handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error('[IMovies Server Error]:', err);

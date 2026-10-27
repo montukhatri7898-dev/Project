@@ -37,7 +37,7 @@
       "releaseDate": "2024-06-27",
       "contentRating": "UA",
       "posterUrl": "/assets/posters/kalki_2898_ad.jpg",
-      "backdropUrl": "/assets/posters/dune_backdrop.jpg",
+      "backdropUrl": "/assets/posters/kalki_backdrop.jpg",
       "trailerUrl": "https://www.youtube.com/watch?v=kQDd1AhGIHk",
       "cast": [
         "Prabhas",
@@ -47,8 +47,8 @@
         "Disha Patani"
       ],
       "status": "now_showing",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     },
     {
       "_id": "mov_jawan",
@@ -75,8 +75,8 @@
         "Sanya Malhotra"
       ],
       "status": "now_showing",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     },
     {
       "_id": "mov_stree_2",
@@ -92,7 +92,7 @@
       "releaseDate": "2024-08-15",
       "contentRating": "UA",
       "posterUrl": "/assets/posters/stree_2.jpg",
-      "backdropUrl": "/assets/posters/oppenheimer_backdrop.jpg",
+      "backdropUrl": "/assets/posters/stree_2_backdrop.jpg",
       "trailerUrl": "https://www.youtube.com/watch?v=KVnheQ84kCA",
       "cast": [
         "Rajkummar Rao",
@@ -102,8 +102,8 @@
         "Aparshakti Khurana"
       ],
       "status": "now_showing",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     },
     {
       "_id": "mov_animal",
@@ -130,8 +130,8 @@
         "Triptii Dimri"
       ],
       "status": "now_showing",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     },
     {
       "_id": "mov_dune_part_two",
@@ -158,8 +158,8 @@
         "Austin Butler"
       ],
       "status": "now_showing",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     },
     {
       "_id": "mov_oppenheimer",
@@ -186,8 +186,8 @@
         "Florence Pugh"
       ],
       "status": "now_showing",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     },
     {
       "_id": "mov_rrr",
@@ -214,8 +214,8 @@
         "Shriya Saran"
       ],
       "status": "now_showing",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     },
     {
       "_id": "mov_interstellar",
@@ -242,8 +242,8 @@
         "Matt Damon"
       ],
       "status": "now_showing",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     },
     {
       "_id": "mov_pushpa_2",
@@ -269,8 +269,8 @@
         "Jagapathi Babu"
       ],
       "status": "coming_soon",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     },
     {
       "_id": "mov_avengers_endgame",
@@ -297,8 +297,8 @@
         "Scarlett Johansson"
       ],
       "status": "coming_soon",
-      "createdAt": "2026-10-27T04:31:44.016Z",
-      "updatedAt": "2026-10-27T04:31:44.016Z"
+      "createdAt": "2026-10-27T05:09:52.543Z",
+      "updatedAt": "2026-10-27T05:09:52.543Z"
     }
   ],
   "theatres": [
@@ -379,8 +379,8 @@
         }
       ],
       "status": "active",
-      "createdAt": "2026-10-27T04:31:44.065Z",
-      "updatedAt": "2026-10-27T04:31:44.065Z"
+      "createdAt": "2026-10-27T05:09:52.594Z",
+      "updatedAt": "2026-10-27T05:09:52.594Z"
     },
     {
       "_id": "th_inox_bandra",
@@ -427,8 +427,8 @@
         }
       ],
       "status": "active",
-      "createdAt": "2026-10-27T04:31:44.065Z",
-      "updatedAt": "2026-10-27T04:31:44.065Z"
+      "createdAt": "2026-10-27T05:09:52.594Z",
+      "updatedAt": "2026-10-27T05:09:52.594Z"
     },
     {
       "_id": "th_cine_delhi",
@@ -475,8 +475,8 @@
         }
       ],
       "status": "active",
-      "createdAt": "2026-10-27T04:31:44.065Z",
-      "updatedAt": "2026-10-27T04:31:44.065Z"
+      "createdAt": "2026-10-27T05:09:52.594Z",
+      "updatedAt": "2026-10-27T05:09:52.594Z"
     },
     {
       "_id": "th_nexus_bengaluru",
@@ -525,8 +525,8 @@
         }
       ],
       "status": "active",
-      "createdAt": "2026-10-27T04:31:44.065Z",
-      "updatedAt": "2026-10-27T04:31:44.065Z"
+      "createdAt": "2026-10-27T05:09:52.594Z",
+      "updatedAt": "2026-10-27T05:09:52.594Z"
     },
     {
       "_id": "th_prasads_hyderabad",
@@ -575,8 +575,8 @@
         }
       ],
       "status": "active",
-      "createdAt": "2026-10-27T04:31:44.065Z",
-      "updatedAt": "2026-10-27T04:31:44.065Z"
+      "createdAt": "2026-10-27T05:09:52.594Z",
+      "updatedAt": "2026-10-27T05:09:52.594Z"
     },
     {
       "_id": "th_phoenix_pune",
@@ -623,8 +623,8 @@
         }
       ],
       "status": "active",
-      "createdAt": "2026-10-27T04:31:44.065Z",
-      "updatedAt": "2026-10-27T04:31:44.065Z"
+      "createdAt": "2026-10-27T05:09:52.594Z",
+      "updatedAt": "2026-10-27T05:09:52.594Z"
     }
   ],
   "shows": [
@@ -28547,8 +28547,9 @@
       "row": "A",
       "number": 4,
       "tier": "silver",
-      "status": "available",
-      "updatedAt": "2026-10-27T04:25:16.765Z"
+      "status": "booked",
+      "updatedAt": "2026-10-27T05:10:51.109Z",
+      "bookingId": "bkg_1793077847305_sl5t"
     },
     {
       "_id": "shw_animal_mumbai_1_A05",
@@ -28557,8 +28558,9 @@
       "row": "A",
       "number": 5,
       "tier": "silver",
-      "status": "available",
-      "updatedAt": "2026-10-27T04:25:16.765Z"
+      "status": "booked",
+      "updatedAt": "2026-10-27T05:10:51.110Z",
+      "bookingId": "bkg_1793077847305_sl5t"
     },
     {
       "_id": "shw_animal_mumbai_1_A06",
@@ -28567,8 +28569,9 @@
       "row": "A",
       "number": 6,
       "tier": "silver",
-      "status": "available",
-      "updatedAt": "2026-10-27T04:25:16.765Z"
+      "status": "booked",
+      "updatedAt": "2026-10-27T05:10:51.110Z",
+      "bookingId": "bkg_1793077847305_sl5t"
     },
     {
       "_id": "shw_animal_mumbai_1_A07",
@@ -72711,8 +72714,81 @@
       "updatedAt": "2026-10-27T04:25:16.776Z"
     }
   ],
-  "bookings": [],
-  "notifications": [],
+  "bookings": [
+    {
+      "_id": "bkg_1793077847305_sl5t",
+      "bookingReference": "IMV-315854",
+      "userId": "usr_1793077591894_5xwum",
+      "userEmail": "stevejobs@gmail.com",
+      "userName": "Steve Jobs",
+      "showId": "shw_animal_mumbai_1",
+      "movieSnapshot": {
+        "movieId": "mov_animal",
+        "title": "Animal",
+        "posterUrl": "/assets/posters/animal.jpg",
+        "language": "Hindi",
+        "contentRating": "A",
+        "durationMinutes": 201
+      },
+      "theatreSnapshot": {
+        "theatreId": "th_pvr_phoenix",
+        "name": "IMovies Cineplex — Phoenix Palladium",
+        "city": "Mumbai",
+        "screenName": "Audi 1 (IMAX 3D Laser)",
+        "address": "462 Senapati Bapat Marg, Lower Parel, Mumbai"
+      },
+      "showTime": "2026-10-27T14:30:00.000Z",
+      "selectedSeats": [
+        {
+          "seatId": "A04",
+          "row": "A",
+          "number": 4,
+          "tier": "silver",
+          "price": 280
+        },
+        {
+          "seatId": "A05",
+          "row": "A",
+          "number": 5,
+          "tier": "silver",
+          "price": 280
+        },
+        {
+          "seatId": "A06",
+          "row": "A",
+          "number": 6,
+          "tier": "silver",
+          "price": 280
+        }
+      ],
+      "subtotal": 840,
+      "taxes": 167,
+      "fees": 90,
+      "totalAmount": 1097,
+      "bookingStatus": "confirmed",
+      "paymentStatus": "paid",
+      "createdAt": "2026-10-27T05:10:47.305Z",
+      "updatedAt": "2026-10-27T05:10:51.203Z",
+      "qrCodeDataUrl": "data:image/png;base64,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",
+      "paymentDetails": {
+        "orderId": "order_1793077850934_ndl18",
+        "paymentId": "pay_1793077851023_lczy",
+        "method": "UPI (patron@okaxis)",
+        "paidAt": "2026-10-27T05:10:51.203Z"
+      }
+    }
+  ],
+  "notifications": [
+    {
+      "_id": "notif_1793077851203",
+      "userId": "usr_1793077591894_5xwum",
+      "type": "booking_confirmed",
+      "title": "Ticket Confirmed!",
+      "message": "Your booking for \"Animal\" at IMovies Cineplex — Phoenix Palladium (A04, A05, A06) has been confirmed. Ref: #IMV-315854.",
+      "read": false,
+      "createdAt": "2026-10-27T05:10:51.203Z"
+    }
+  ],
   "promotions": [
     {
       "_id": "promo_welcome50",

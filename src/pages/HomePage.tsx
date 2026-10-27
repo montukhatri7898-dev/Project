@@ -50,7 +50,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     language: 'Telugu / Hindi',
     durationMinutes: 181,
     contentRating: 'UA',
-    backdropUrl: '/assets/posters/dune_backdrop.jpg',
+    backdropUrl: '/assets/posters/kalki_backdrop.jpg',
     posterUrl: '/assets/posters/kalki_2898_ad.jpg',
   };
 
