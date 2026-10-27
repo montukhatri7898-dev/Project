@@ -80,11 +80,17 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <p className="text-[11px] leading-relaxed text-gray-400 mb-2">
               Designed & architected for academic defense, demonstrating multi-role RBAC, real-time seat lock concurrency, and idempotent checkout verification.
             </p>
-            <div className="p-2.5 rounded bg-white/5 border border-white/5 text-[11px] text-gray-400">
+            <div className="p-2.5 rounded bg-white/5 border border-white/5 text-[11px] text-gray-400 mb-2">
               Demo Admin: <span className="text-gray-200">admin@imovies.com</span>
               <br />
               Password: <span className="text-gray-200">admin123</span>
             </div>
+            <button
+              onClick={() => onNavigate('docs')}
+              className="w-full py-1.5 px-3 bg-red-600/20 hover:bg-red-600/30 text-red-400 hover:text-red-300 border border-red-500/30 rounded text-[11px] font-medium transition-colors text-center cursor-pointer"
+            >
+              View 6-Part Rubric Documentation
+            </button>
           </div>
         </div>
 

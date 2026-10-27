@@ -22,6 +22,11 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ bookingId, onNavigat
   const [selectedBank, setSelectedBank] = useState('HDFC Bank');
   const [processing, setProcessing] = useState(false);
 
+  // Promo code state
+  const [promoInput, setPromoInput] = useState('');
+  const [appliedPromo, setAppliedPromo] = useState<{ code: string; discountAmount: number; title: string } | null>(null);
+  const [promoMsg, setPromoMsg] = useState<{ text: string; isError: boolean } | null>(null);
+
   useEffect(() => {
     loadBooking();
   }, [bookingId]);
@@ -40,6 +45,27 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ bookingId, onNavigat
       setError(err.message || 'Failed to load booking checkout.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleApplyPromo = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!booking || !promoInput.trim()) return;
+
+    try {
+      setPromoMsg(null);
+      const res = await api.verifyPromotion(promoInput.trim(), booking.totalAmount);
+      if (res.success && res.data) {
+        setAppliedPromo({
+          code: res.data.code,
+          discountAmount: res.data.discountAmount,
+          title: res.data.title,
+        });
+        setPromoMsg({ text: res.message, isError: false });
+      }
+    } catch (err: any) {
+      setAppliedPromo(null);
+      setPromoMsg({ text: err.message || 'Coupon code could not be applied.', isError: true });
     }
   };
 
@@ -284,7 +310,15 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ bookingId, onNavigat
                   className="w-full py-3 bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white rounded-lg text-xs font-bold tracking-wide transition-all shadow-lg shadow-red-600/30 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <ShieldCheck className="w-4 h-4" />
-                  <span>{processing ? 'Verifying Transaction with Bank...' : `Pay ₹${booking.totalAmount} & Confirm Ticket`}</span>
+                  <span>
+                    {processing
+                      ? 'Verifying Transaction with Bank...'
+                      : `Pay ₹${
+                          appliedPromo
+                            ? Math.max(0, booking.totalAmount - appliedPromo.discountAmount)
+                            : booking.totalAmount
+                        } & Confirm Ticket`}
+                  </span>
                 </button>
               </div>
             </form>
@@ -330,6 +364,38 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ bookingId, onNavigat
               </div>
             </div>
 
+            {/* Promo Code Input Box */}
+            <div className="border-t border-white/10 pt-3">
+              <label className="block text-[11px] font-medium text-gray-300 mb-1">
+                Have a Promotion Code?
+              </label>
+              <form onSubmit={handleApplyPromo} className="flex gap-2">
+                <input
+                  type="text"
+                  value={promoInput}
+                  onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                  placeholder="e.g. IMOVIE50 / DESI20"
+                  className="flex-1 bg-[#0B0C10] border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white uppercase font-mono placeholder-gray-500 focus:outline-none focus:border-red-500"
+                />
+                <button
+                  type="submit"
+                  className="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-medium cursor-pointer"
+                >
+                  Apply
+                </button>
+              </form>
+
+              {promoMsg && (
+                <p
+                  className={`text-[11px] mt-1.5 ${
+                    promoMsg.isError ? 'text-red-400' : 'text-emerald-400'
+                  }`}
+                >
+                  {promoMsg.text}
+                </p>
+              )}
+            </div>
+
             {/* Itemized Calculations */}
             <div className="border-t border-white/10 pt-3 space-y-2 text-xs text-gray-300">
               <div className="flex justify-between">
@@ -344,9 +410,17 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ bookingId, onNavigat
                 <span>Integrated GST (18%)</span>
                 <span className="font-mono text-white">₹{booking.taxes}</span>
               </div>
+              {appliedPromo && (
+                <div className="flex justify-between text-emerald-400 font-semibold">
+                  <span>Promo Discount ({appliedPromo.code})</span>
+                  <span className="font-mono">-₹{appliedPromo.discountAmount}</span>
+                </div>
+              )}
               <div className="border-t border-white/10 pt-3 flex justify-between text-base font-bold text-white">
                 <span>Total Payable</span>
-                <span className="text-red-500 font-mono">₹{booking.totalAmount}</span>
+                <span className="text-red-500 font-mono">
+                  ₹{appliedPromo ? Math.max(0, booking.totalAmount - appliedPromo.discountAmount) : booking.totalAmount}
+                </span>
               </div>
             </div>
           </div>

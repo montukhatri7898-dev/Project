@@ -3,6 +3,7 @@ import { Search, Play, Calendar, Film, Star, ArrowRight, ShieldCheck, Sparkles, 
 import { Movie, Theatre } from '../types/index.js';
 import { api } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.js';
+import { Promotions } from '../components/Promotions.js';
 
 interface HomePageProps {
   onNavigate: (view: string, params?: any) => void;
@@ -229,8 +230,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* 4. Cinema Multiplexes in Selected City */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      {/* 4. Active Movie Promotions & Coupon Offers */}
+      <Promotions onNavigate={onNavigate} />
+
+      {/* 5. Cinema Multiplexes in Selected City */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">

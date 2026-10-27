@@ -1,5 +1,8 @@
 # IMovies — Full-Stack Cinema Ticket Booking & Management System
 
+> **Project Reference**: `montukhatri7898-dev/Project: iMovies`  
+> **Evaluation Rubric Compliance**: For the complete, exhaustive project report covering all 6 Rubric Modules, see [PROJECT_DOCUMENTATION.md](./PROJECT_DOCUMENTATION.md).
+
 A production-grade, end-to-end MERN-architected cinema ticket booking platform providing movie discovery, interactive multi-tier seat selection with real-time locking via WebSockets, atomic booking and checkout verification, verifiable QR boarding passes, customer booking management with configurable cancellation, and a comprehensive role-protected administration dashboard.
 
 ---

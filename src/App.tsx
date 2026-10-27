@@ -17,6 +17,7 @@ import { CheckoutPage } from './pages/CheckoutPage.js';
 import { BookingConfirmationPage } from './pages/BookingConfirmationPage.js';
 import { MyBookingsPage } from './pages/MyBookingsPage.js';
 import { AdminPage } from './pages/AdminPage.js';
+import { ProjectDocPage } from './pages/ProjectDocPage.js';
 
 export function AppContent() {
   const [currentView, setCurrentView] = useState<string>('home');
@@ -76,6 +77,7 @@ export function AppContent() {
         )}
         {currentView === 'my-bookings' && <MyBookingsPage onNavigate={navigate} />}
         {currentView === 'admin' && <AdminPage onNavigate={navigate} />}
+        {currentView === 'docs' && <ProjectDocPage onNavigate={navigate} />}
       </main>
 
       <Footer onNavigate={navigate} />

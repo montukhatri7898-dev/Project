@@ -183,3 +183,18 @@ export interface AdminMetrics {
   heldSeatsCount: number;
   overallOccupancyPct: number;
 }
+
+export interface Promotion {
+  _id: string;
+  code: string;
+  title: string;
+  description: string;
+  discountType: 'flat' | 'percentage' | 'cashback';
+  discountValue: number;
+  minBookingAmount?: number;
+  badge: string;
+  validUntil: string;
+  bannerGradient: string;
+  featuredMovieTitle?: string;
+  terms?: string;
+}

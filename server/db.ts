@@ -159,6 +159,21 @@ export interface NotificationDoc {
   createdAt: string;
 }
 
+export interface PromotionDoc {
+  _id: string;
+  code: string;
+  title: string;
+  description: string;
+  discountType: 'flat' | 'percentage' | 'cashback';
+  discountValue: number;
+  minBookingAmount?: number;
+  badge: string;
+  validUntil: string;
+  bannerGradient: string;
+  featuredMovieTitle?: string;
+  terms?: string;
+}
+
 export interface DatabaseSchema {
   users: UserDoc[];
   movies: MovieDoc[];
@@ -167,6 +182,7 @@ export interface DatabaseSchema {
   seats: SeatInventoryDoc[];
   bookings: BookingDoc[];
   notifications: NotificationDoc[];
+  promotions: PromotionDoc[];
 }
 
 class Database {
@@ -182,6 +198,7 @@ class Database {
       seats: [],
       bookings: [],
       notifications: [],
+      promotions: [],
     };
     this.init();
   }
@@ -195,6 +212,9 @@ class Database {
       try {
         const raw = fs.readFileSync(DB_FILE, 'utf-8');
         this.data = JSON.parse(raw);
+        if (!this.data.promotions) {
+          this.data.promotions = [];
+        }
         console.log('[IMovies DB] Loaded existing database records successfully.');
       } catch (err) {
         console.error('[IMovies DB] Error reading DB file, re-initializing seed:', err);
@@ -204,6 +224,9 @@ class Database {
       console.log('[IMovies DB] No existing DB file found. Seeding initial data...');
       this.seedInitialData();
     }
+
+    // Auto-sync promotions and Indian movies if not yet present
+    this.ensureIndianMoviesAndPromotions();
   }
 
   public save() {
@@ -224,6 +247,199 @@ class Database {
   public get seats() { return this.data.seats; }
   public get bookings() { return this.data.bookings; }
   public get notifications() { return this.data.notifications; }
+  public get promotions() { return this.data.promotions; }
+
+  private ensureIndianMoviesAndPromotions() {
+    let modified = false;
+
+    // 1. Sync Promotions
+    if (!this.data.promotions || this.data.promotions.length === 0) {
+      this.data.promotions = [
+        {
+          _id: 'promo_welcome50',
+          code: 'IMOVIE50',
+          title: 'Welcome to IMovies',
+          description: 'Get Flat ₹50 instant discount on your first cinema ticket reservation.',
+          discountType: 'flat',
+          discountValue: 50,
+          minBookingAmount: 200,
+          badge: 'WELCOME OFFER',
+          validUntil: '2026-12-31',
+          bannerGradient: 'from-red-950/70 to-rose-900/50',
+          terms: 'Applicable on any show across all participating multiplexes.',
+        },
+        {
+          _id: 'promo_desi20',
+          code: 'DESI20',
+          title: 'Indian Blockbuster Bonanza',
+          description: 'Enjoy 20% OFF on Bollywood & Indian action spectacles including Mumbai Velocity & Kaal Bhairav.',
+          discountType: 'percentage',
+          discountValue: 20,
+          minBookingAmount: 300,
+          badge: 'TRENDING DEAL',
+          validUntil: '2026-11-30',
+          bannerGradient: 'from-amber-950/70 to-orange-900/50',
+          featuredMovieTitle: 'Mumbai Velocity & Kaal Bhairav',
+          terms: 'Valid on Hindi, Tamil, Telugu, and Kannada language theatrical screenings.',
+        },
+        {
+          _id: 'promo_imaxlaser',
+          code: 'IMAXPASS',
+          title: 'IMAX Laser Experience Special',
+          description: 'Save ₹100 on premium IMAX 3D and Dolby Atmos screenings for 2+ tickets.',
+          discountType: 'flat',
+          discountValue: 100,
+          minBookingAmount: 500,
+          badge: 'IMAX EXCLUSIVE',
+          validUntil: '2026-11-20',
+          bannerGradient: 'from-sky-950/70 to-blue-900/50',
+          terms: 'Valid on Phoenix Palladium and Connaught Place IMAX auditoriums.',
+        },
+        {
+          _id: 'promo_matinee25',
+          code: 'MATINEE25',
+          title: 'Weekday Matinee Celebration',
+          description: 'Flat 25% OFF on morning & matinee shows scheduled before 4:00 PM (Mon-Thu).',
+          discountType: 'percentage',
+          discountValue: 25,
+          minBookingAmount: 250,
+          badge: 'WEEKDAY SAVER',
+          validUntil: '2026-12-15',
+          bannerGradient: 'from-emerald-950/70 to-teal-900/50',
+          terms: 'Subject to auditorium seat availability.',
+        },
+      ];
+      modified = true;
+    }
+
+    // 2. Ensure Indian Movies exist
+    const indianMoviesToAdd: MovieDoc[] = [
+      {
+        _id: 'mov_mumbai_velocity',
+        title: 'Mumbai Velocity',
+        slug: 'mumbai-velocity',
+        description: 'In the high-speed neon streets of Mumbai, an elite undercover specialist is pulled into an adrenaline-charged chase against an international syndicate. Featuring death-defying car pursuits along Marine Drive and high-octane martial arts.',
+        genre: ['Action', 'Thriller', 'Crime'],
+        language: 'Hindi',
+        durationMinutes: 148,
+        releaseDate: '2026-10-22',
+        contentRating: 'UA',
+        posterUrl: '/src/assets/images/poster_mumbai_heist_1792990334498.jpg',
+        backdropUrl: '/src/assets/images/poster_mumbai_heist_1792990334498.jpg',
+        trailerUrl: 'https://www.youtube.com/watch?v=d96cjKs0Hy8',
+        cast: ['Akshay Khan', 'Vidyut Jai', 'Jacqueline Roy', 'Pankaj Tripathi'],
+        status: 'now_showing',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        _id: 'mov_kaal_bhairav',
+        title: 'Kaal Bhairav: Forest Legend',
+        slug: 'kaal-bhairav-forest-legend',
+        description: 'Deep in the sacred deodar forests of Karnataka, an ancestral warrior dancer invokes the divine protector when an encroaching timber syndicate threatens their holy shrine. An epic saga of ritualistic fury and justice.',
+        genre: ['Action', 'Folklore', 'Drama', 'Mythological'],
+        language: 'Hindi',
+        durationMinutes: 156,
+        releaseDate: '2026-10-24',
+        contentRating: 'UA',
+        posterUrl: '/src/assets/images/poster_kantara_spirit_1792990334483.jpg',
+        backdropUrl: '/src/assets/images/poster_kantara_spirit_1792990334483.jpg',
+        trailerUrl: 'https://www.youtube.com/watch?v=TcMBFSGVi1c',
+        cast: ['Aditya Singh', 'Sapthami Rao', 'Kishore Gowda', 'Rishabh Dev'],
+        status: 'now_showing',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        _id: 'mov_kalki_chronicles',
+        title: 'Kalki: Dawn of Dharma',
+        slug: 'kalki-dawn-of-dharma',
+        description: 'In the dystopian year 2898 in ancient Kasi, legendary mythological warriors clash with robotic armies over the protection of a holy vessel, igniting an epochal battle for humanitys rebirth.',
+        genre: ['Sci-Fi', 'Mythological', 'Action'],
+        language: 'Telugu / Hindi',
+        durationMinutes: 172,
+        releaseDate: '2026-11-20',
+        contentRating: 'UA',
+        posterUrl: '/src/assets/images/poster_crimson_dynasty_1792988111258.jpg',
+        backdropUrl: '/src/assets/images/hero_cinema_blockbuster_1792988110364.jpg',
+        trailerUrl: 'https://www.youtube.com/watch?v=zSWdZVtXT7E',
+        cast: ['Prabhas Raju', 'Amitabh Bachchan', 'Deepika Padukone', 'Kamal Haasan'],
+        status: 'coming_soon',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+    ];
+
+    const now = new Date();
+    const todayStr = now.toISOString().split('T')[0];
+    const tomorrowStr = new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+    for (const indianMovie of indianMoviesToAdd) {
+      const exists = this.data.movies.some((m) => m._id === indianMovie._id || m.title === indianMovie.title);
+      if (!exists) {
+        this.data.movies.unshift(indianMovie);
+        modified = true;
+
+        // Add shows for now_showing Indian movies
+        if (indianMovie.status === 'now_showing') {
+          const sampleTheatres = this.data.theatres.slice(0, 2);
+          sampleTheatres.forEach((th, idx) => {
+            const screen = th.screens[0];
+            if (!screen) return;
+
+            const showId = `shw_${indianMovie.slug}_${th.city.toLowerCase()}_${idx + 1}`;
+            const showExists = this.data.shows.some((s) => s._id === showId);
+            if (!showExists) {
+              const newShow: ShowDoc = {
+                _id: showId,
+                movieId: indianMovie._id,
+                theatreId: th._id,
+                screenId: screen.screenId,
+                screenName: screen.name,
+                startTime: `${idx === 0 ? todayStr : tomorrowStr}T${idx === 0 ? '19:45:00' : '17:30:00'}.000Z`,
+                endTime: `${idx === 0 ? todayStr : tomorrowStr}T${idx === 0 ? '22:30:00' : '20:15:00'}.000Z`,
+                tierPricing: {
+                  silver: 220,
+                  gold: 340,
+                  platinum: 480,
+                },
+                status: 'scheduled',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+              };
+              this.data.shows.push(newShow);
+
+              // Initialize seats
+              screen.rows.forEach((rowLetter) => {
+                let tier: 'silver' | 'gold' | 'platinum' = 'gold';
+                if (screen.tierRows.silver.includes(rowLetter)) tier = 'silver';
+                if (screen.tierRows.platinum.includes(rowLetter)) tier = 'platinum';
+
+                for (let num = 1; num <= screen.seatsPerRow; num++) {
+                  const seatId = `${rowLetter}${num < 10 ? '0' + num : num}`;
+                  this.data.seats.push({
+                    _id: `${newShow._id}_${seatId}`,
+                    showId: newShow._id,
+                    seatId,
+                    row: rowLetter,
+                    number: num,
+                    tier,
+                    status: 'available',
+                    updatedAt: new Date().toISOString(),
+                  });
+                }
+              });
+            }
+          });
+        }
+      }
+    }
+
+    if (modified) {
+      this.save();
+      console.log('[IMovies DB] Successfully synchronized Indian movies and promotions.');
+    }
+  }
 
   private seedInitialData() {
     const adminPasswordHash = bcrypt.hashSync('admin123', 10);

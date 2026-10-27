@@ -17,10 +17,14 @@ import bookingsRouter from './server/routes/bookings.js';
 import paymentsRouter from './server/routes/payments.js';
 import adminRouter from './server/routes/admin.js';
 import notificationsRouter from './server/routes/notifications.js';
+import promotionsRouter from './server/routes/promotions.js';
 
 const app = express();
 const server = http.createServer(app);
 const PORT = Number(process.env.PORT) || 3000;
+
+// Enable trust proxy for Cloud Run and reverse proxy environments
+app.set('trust proxy', 1);
 
 // Initialize Socket.IO with real-time seat reservation sync
 initSocketIO(server);
@@ -47,12 +51,13 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Global Authentication parser
 app.use(authenticate as any);
 
-// General API Rate Limiting
+// General API Rate Limiting (configured for reverse proxy)
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 300,
   standardHeaders: true,
   legacyHeaders: false,
+  validate: false,
   message: { success: false, error: 'Too many requests. Please try again later.' },
 });
 app.use('/api', apiLimiter);
@@ -66,6 +71,7 @@ app.use('/api/bookings', bookingsRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/notifications', notificationsRouter);
+app.use('/api/promotions', promotionsRouter);
 
 // Health Check
 app.get('/api/health', (req: Request, res: Response) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Film, MapPin, Bell, User as UserIcon, LogOut, ShieldCheck, Ticket } from 'lucide-react';
+import { Film, MapPin, Bell, User as UserIcon, LogOut, ShieldCheck, Ticket, BookOpen } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.js';
 import { api } from '../api/client.js';
 import { NotificationItem } from '../types/index.js';
@@ -109,6 +109,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
           >
             <Ticket className="w-4 h-4" />
             My Bookings
+          </button>
+          <button
+            onClick={() => onNavigate('docs')}
+            className={`whitespace-nowrap shrink-0 transition-colors hover:text-white cursor-pointer flex items-center gap-1.5 ${
+              currentView === 'docs' ? 'text-red-500 font-semibold' : ''
+            }`}
+          >
+            <BookOpen className="w-4 h-4" />
+            Project Docs
           </button>
           {user?.role === 'admin' && (
             <button

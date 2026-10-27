@@ -305,6 +305,29 @@ class ApiClient {
       method: 'POST',
     });
   }
+
+  // Promotions API
+  async getPromotions() {
+    return this.request<{ success: boolean; data: any[]; meta: { count: number } }>('/promotions');
+  }
+
+  async verifyPromotion(code: string, amount: number) {
+    return this.request<{
+      success: boolean;
+      data: {
+        code: string;
+        title: string;
+        discountType: string;
+        discountAmount: number;
+        finalAmount: number;
+        badge: string;
+      };
+      message: string;
+    }>('/promotions/verify', {
+      method: 'POST',
+      body: JSON.stringify({ code, amount }),
+    });
+  }
 }
 
 export const api = new ApiClient();
