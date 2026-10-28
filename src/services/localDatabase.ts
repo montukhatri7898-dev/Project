@@ -314,6 +314,69 @@ export class LocalDatabaseService {
 
     this.movies.unshift(newMovie);
     this.saveMovies();
+
+    // Auto-generate active shows & seats across multiplexes so the new movie is immediately bookable
+    if (newMovie.status === 'now_showing') {
+      const now = new Date();
+      const todayStr = now.toISOString().split('T')[0];
+      const tomorrowStr = new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+      this.theatres.forEach((th) => {
+        const sc = th.screens[0];
+        if (!sc) return;
+        const slots = ['15:00:00', '19:30:00'];
+        slots.forEach((timeStr, sIdx) => {
+          const dStr = sIdx === 0 ? todayStr : tomorrowStr;
+          const showId = `shw_${newMovie.slug}_${th.city.toLowerCase()}_${sIdx + 1}_${Date.now()}`;
+          const newShow: Show = {
+            _id: showId,
+            movieId: newMovie._id,
+            theatreId: th._id,
+            screenId: sc.screenId,
+            screenName: sc.name,
+            startTime: `${dStr}T${timeStr}.000Z`,
+            endTime: `${dStr}T22:00:00.000Z`,
+            tierPricing: {
+              silver: sc.screenType === 'IMAX 3D' ? 280 : 200,
+              gold: sc.screenType === 'IMAX 3D' ? 420 : 320,
+              platinum: sc.screenType === 'IMAX 3D' ? 580 : 450,
+            },
+            status: 'scheduled',
+            movie: {
+              _id: newMovie._id,
+              title: newMovie.title,
+              posterUrl: newMovie.posterUrl,
+              language: newMovie.language,
+              durationMinutes: newMovie.durationMinutes,
+              contentRating: newMovie.contentRating,
+            },
+            theatre: {
+              _id: th._id,
+              name: th.name,
+              city: th.city,
+              address: th.address,
+              facilities: th.facilities,
+            },
+          };
+          this.shows.push(newShow);
+
+          const showSeats: SeatItem[] = [];
+          sc.rows.forEach((r) => {
+            let tier: 'silver' | 'gold' | 'platinum' = 'gold';
+            if (sc.tierRows.silver.includes(r)) tier = 'silver';
+            if (sc.tierRows.platinum.includes(r)) tier = 'platinum';
+            const price = newShow.tierPricing[tier];
+            for (let num = 1; num <= sc.seatsPerRow; num++) {
+              const seatId = `${r}${num < 10 ? '0' + num : num}`;
+              showSeats.push({ seatId, row: r, number: num, tier, price, status: 'available' });
+            }
+          });
+          this.seats[showId] = showSeats;
+        });
+      });
+      this.saveShowsAndSeats();
+    }
+
     return { success: true, data: newMovie };
   }
 

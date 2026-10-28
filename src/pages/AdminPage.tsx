@@ -714,13 +714,27 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onNavigate }) => {
               </div>
 
               <div>
-                <label className="block text-gray-300 font-medium mb-1">Poster Asset Path / URL</label>
-                <input
-                  type="text"
-                  value={newMoviePoster}
-                  onChange={(e) => setNewMoviePoster(e.target.value)}
-                  className="w-full bg-[#0B0C10] border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:border-red-500 font-mono text-[11px]"
-                />
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-gray-300 font-medium">Poster Image URL / Path</label>
+                  <span className="text-[10px] text-gray-500">Paste any web URL (https://...) or local path</span>
+                </div>
+                <div className="flex gap-3 items-center">
+                  <img
+                    src={newMoviePoster || '/assets/posters/kalki_2898_ad.jpg'}
+                    alt="Poster Preview"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/assets/posters/kalki_2898_ad.jpg';
+                    }}
+                    className="w-12 h-16 object-cover rounded bg-black/50 border border-white/10 shrink-0"
+                  />
+                  <input
+                    type="text"
+                    value={newMoviePoster}
+                    onChange={(e) => setNewMoviePoster(e.target.value)}
+                    placeholder="https://... or /assets/posters/..."
+                    className="flex-1 bg-[#0B0C10] border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:border-red-500 font-mono text-[11px]"
+                  />
+                </div>
               </div>
 
               <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">

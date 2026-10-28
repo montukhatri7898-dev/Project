@@ -119,17 +119,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
             <BookOpen className="w-4 h-4" />
             Project Docs
           </button>
-          {user?.role === 'admin' && (
-            <button
-              onClick={() => onNavigate('admin')}
-              className={`whitespace-nowrap shrink-0 transition-colors flex items-center gap-1 cursor-pointer ${
-                currentView === 'admin' ? 'text-red-400 font-semibold' : 'text-amber-400/90 hover:text-amber-300'
-              }`}
-            >
-              <ShieldCheck className="w-4 h-4" />
-              Admin Portal
-            </button>
-          )}
+          <button
+            onClick={() => onNavigate('admin')}
+            className={`whitespace-nowrap shrink-0 transition-colors flex items-center gap-1.5 cursor-pointer text-xs font-semibold px-2.5 py-1 rounded-md border ${
+              currentView === 'admin'
+                ? 'bg-red-600 text-white border-red-500'
+                : 'text-amber-400 hover:text-amber-300 border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20'
+            }`}
+            title="Open Admin Portal to add movies, cinemas, screens, and schedules"
+          >
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Admin Portal</span>
+          </button>
         </nav>
 
         {/* Zone 3: 1 Primary Area (City Selector + Notification + User Auth) */}

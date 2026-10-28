@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Film, ArrowRight } from 'lucide-react';
+import { Search, Film, ArrowRight, Plus } from 'lucide-react';
 import { Movie } from '../types/index.js';
 import { api } from '../api/client.js';
 
@@ -72,15 +72,25 @@ export const MoviesPage: React.FC<MoviesPageProps> = ({ onNavigate }) => {
           </p>
         </div>
 
-        <div className="relative w-full md:w-80">
-          <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search titles, actors, directors..."
-            className="w-full bg-[#14161D] border border-white/10 rounded-lg pl-9 pr-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
-          />
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <div className="relative flex-1 md:w-72">
+            <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search titles, actors, directors..."
+              className="w-full bg-[#14161D] border border-white/10 rounded-lg pl-9 pr-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+            />
+          </div>
+          <button
+            onClick={() => onNavigate('admin')}
+            className="px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 shadow-sm"
+            title="Add or manage movies in the Admin Portal"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add Movie</span>
+          </button>
         </div>
       </div>
 
