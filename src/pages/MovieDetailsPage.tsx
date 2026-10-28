@@ -3,6 +3,7 @@ import { ArrowLeft, Play, Calendar, MapPin, Clock, Film, ShieldAlert, Sparkles, 
 import { Movie, Show } from '../types/index.js';
 import { api } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.js';
+import { localDb } from '../services/localDatabase.js';
 
 interface MovieDetailsPageProps {
   movieId: string;
@@ -32,13 +33,23 @@ export const MovieDetailsPage: React.FC<MovieDetailsPageProps> = ({ movieId, onN
       setLoading(true);
       setError(null);
       const res = await api.getMovie(movieId);
-      if (res.success && res.data) {
+      if (res?.success && res.data) {
         setMovie(res.data);
       } else {
-        setError('Movie details could not be found.');
+        const fallback = localDb.getMovie(movieId);
+        if (fallback.success && fallback.data) {
+          setMovie(fallback.data as Movie);
+        } else {
+          setError('Movie details could not be found.');
+        }
       }
     } catch (err: any) {
-      setError(err.message || 'Failed to load movie details');
+      const fallback = localDb.getMovie(movieId);
+      if (fallback.success && fallback.data) {
+        setMovie(fallback.data as Movie);
+      } else {
+        setError(err.message || 'Failed to load movie details');
+      }
     } finally {
       setLoading(false);
     }

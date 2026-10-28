@@ -5,18 +5,20 @@ import { api } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.js';
 import { Promotions } from '../components/Promotions.js';
 
+import { STATIC_MOVIES, STATIC_THEATRES } from '../data/imoviesStaticDb.js';
+
 interface HomePageProps {
   onNavigate: (view: string, params?: any) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const { selectedCity } = useAuth();
-  const [nowShowing, setNowShowing] = useState<Movie[]>([]);
-  const [comingSoon, setComingSoon] = useState<Movie[]>([]);
-  const [cinemas, setCinemas] = useState<Theatre[]>([]);
+  const [nowShowing, setNowShowing] = useState<Movie[]>(() => STATIC_MOVIES.filter((m) => m.status === 'now_showing'));
+  const [comingSoon, setComingSoon] = useState<Movie[]>(() => STATIC_MOVIES.filter((m) => m.status === 'coming_soon'));
+  const [cinemas, setCinemas] = useState<Theatre[]>(STATIC_THEATRES);
   const [activeTab, setActiveTab] = useState<'now_showing' | 'coming_soon'>('now_showing');
   const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadHomeData();
@@ -24,18 +26,34 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
   const loadHomeData = async () => {
     try {
-      setLoading(true);
       const [nowRes, soonRes, theatresRes] = await Promise.all([
         api.getMovies({ status: 'now_showing', limit: 8 }),
         api.getMovies({ status: 'coming_soon', limit: 4 }),
         api.getTheatres(selectedCity),
       ]);
 
-      if (nowRes.success) setNowShowing(nowRes.data);
-      if (soonRes.success) setComingSoon(soonRes.data);
-      if (theatresRes.success) setCinemas(theatresRes.data);
+      if (nowRes?.success && nowRes.data?.length > 0) {
+        setNowShowing(nowRes.data);
+      } else {
+        setNowShowing(STATIC_MOVIES.filter((m) => m.status === 'now_showing'));
+      }
+
+      if (soonRes?.success && soonRes.data?.length > 0) {
+        setComingSoon(soonRes.data);
+      } else {
+        setComingSoon(STATIC_MOVIES.filter((m) => m.status === 'coming_soon'));
+      }
+
+      if (theatresRes?.success && theatresRes.data?.length > 0) {
+        setCinemas(theatresRes.data);
+      } else {
+        setCinemas(STATIC_THEATRES);
+      }
     } catch (err) {
-      console.error('Failed to load homepage movies:', err);
+      console.warn('Using built-in database movies on published site:', err);
+      setNowShowing(STATIC_MOVIES.filter((m) => m.status === 'now_showing'));
+      setComingSoon(STATIC_MOVIES.filter((m) => m.status === 'coming_soon'));
+      setCinemas(STATIC_THEATRES);
     } finally {
       setLoading(false);
     }

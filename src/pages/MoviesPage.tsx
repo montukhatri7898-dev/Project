@@ -3,21 +3,23 @@ import { Search, Film, ArrowRight } from 'lucide-react';
 import { Movie } from '../types/index.js';
 import { api } from '../api/client.js';
 
+import { STATIC_MOVIES } from '../data/imoviesStaticDb.js';
+
 interface MoviesPageProps {
   onNavigate: (view: string, params?: any) => void;
 }
 
 export const MoviesPage: React.FC<MoviesPageProps> = ({ onNavigate }) => {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [movies, setMovies] = useState<Movie[]>(STATIC_MOVIES);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [selectedLanguage, setSelectedLanguage] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [sortBy, setSortBy] = useState('releaseDate');
   const [facets, setFacets] = useState<{ genres: string[]; languages: string[] }>({
-    genres: [],
-    languages: [],
+    genres: Array.from(new Set(STATIC_MOVIES.flatMap((m) => m.genre))),
+    languages: Array.from(new Set(STATIC_MOVIES.map((m) => m.language))),
   });
 
   useEffect(() => {
@@ -26,7 +28,6 @@ export const MoviesPage: React.FC<MoviesPageProps> = ({ onNavigate }) => {
 
   const fetchMovies = async () => {
     try {
-      setLoading(true);
       const res = await api.getMovies({
         status: selectedStatus,
         genre: selectedGenre !== 'All' ? selectedGenre : undefined,
@@ -35,14 +36,14 @@ export const MoviesPage: React.FC<MoviesPageProps> = ({ onNavigate }) => {
         limit: 20,
       });
 
-      if (res.success) {
+      if (res?.success && res.data?.length > 0) {
         setMovies(res.data);
-        if (res.meta.facets) {
+        if (res.meta?.facets) {
           setFacets(res.meta.facets);
         }
       }
     } catch (err) {
-      console.error('Failed to fetch movies:', err);
+      console.warn('Using static movie database:', err);
     } finally {
       setLoading(false);
     }

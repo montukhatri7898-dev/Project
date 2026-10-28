@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Tag, Sparkles, Copy, Check, Percent, ArrowRight, BadgePercent } from 'lucide-react';
 import { Promotion } from '../types/index.js';
 import { api } from '../api/client.js';
+import { STATIC_PROMOTIONS } from '../data/imoviesStaticDb.js';
 
 interface PromotionsProps {
   onNavigate?: (view: string, params?: any) => void;
 }
 
 export const Promotions: React.FC<PromotionsProps> = ({ onNavigate }) => {
-  const [promotions, setPromotions] = useState<Promotion[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [promotions, setPromotions] = useState<Promotion[]>(STATIC_PROMOTIONS);
+  const [loading, setLoading] = useState(false);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   useEffect(() => {
@@ -18,15 +19,12 @@ export const Promotions: React.FC<PromotionsProps> = ({ onNavigate }) => {
 
   const fetchPromotions = async () => {
     try {
-      setLoading(true);
       const res = await api.getPromotions();
-      if (res.success && res.data) {
+      if (res?.success && res.data?.length > 0) {
         setPromotions(res.data);
       }
     } catch (err) {
-      console.error('Failed to load promotions:', err);
-    } finally {
-      setLoading(false);
+      console.warn('Using static promotions on published site:', err);
     }
   };
 

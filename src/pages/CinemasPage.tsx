@@ -4,15 +4,17 @@ import { Theatre } from '../types/index.js';
 import { api } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.js';
 
+import { STATIC_THEATRES } from '../data/imoviesStaticDb.js';
+
 interface CinemasPageProps {
   onNavigate: (view: string, params?: any) => void;
 }
 
 export const CinemasPage: React.FC<CinemasPageProps> = ({ onNavigate }) => {
   const { selectedCity, setSelectedCity } = useAuth();
-  const [theatres, setTheatres] = useState<Theatre[]>([]);
-  const [availableCities, setAvailableCities] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [theatres, setTheatres] = useState<Theatre[]>(STATIC_THEATRES);
+  const [availableCities, setAvailableCities] = useState<string[]>(['Mumbai', 'Delhi', 'Bengaluru', 'Hyderabad', 'Pune']);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadTheatres();
@@ -20,16 +22,15 @@ export const CinemasPage: React.FC<CinemasPageProps> = ({ onNavigate }) => {
 
   const loadTheatres = async () => {
     try {
-      setLoading(true);
       const res = await api.getTheatres(selectedCity);
-      if (res.success) {
+      if (res?.success && res.data?.length > 0) {
         setTheatres(res.data);
-        if (res.meta.cities) {
+        if (res.meta?.cities) {
           setAvailableCities(res.meta.cities);
         }
       }
     } catch (err) {
-      console.error('Failed to load cinemas:', err);
+      console.warn('Using static theatres on published site:', err);
     } finally {
       setLoading(false);
     }

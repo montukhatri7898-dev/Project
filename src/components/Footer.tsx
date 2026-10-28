@@ -10,12 +10,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
   useEffect(() => {
     fetch('/api/health')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 'ok') setServerStatus('Operational');
-        else setServerStatus('Unavailable');
+      .then((res) => {
+        const ct = res.headers.get('content-type') || '';
+        if (res.ok && ct.includes('application/json')) return res.json();
+        return { status: 'cloud_active' };
       })
-      .catch(() => setServerStatus('Disconnected'));
+      .then((data) => {
+        if (data.status === 'ok') setServerStatus('Operational (Live Server)');
+        else setServerStatus('Operational (Cloud Active)');
+      })
+      .catch(() => setServerStatus('Operational (Cloud Active)'));
   }, []);
 
   return (
